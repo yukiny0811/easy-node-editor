@@ -121,7 +121,7 @@ public struct EasyNodeEditor: View, Identifiable {
                 VStack {
                     ForEach(0..<nodeTypes.count) { i in
                         HStack {
-                            Text("test")
+                            Text(String(describing: nodeTypes[i]))
                             Button("add") {
                                 let temp = nodeTypes[i].init()
                                 manager.nodeModels[temp.id] = temp
