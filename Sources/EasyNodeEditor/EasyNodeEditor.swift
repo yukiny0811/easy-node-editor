@@ -119,6 +119,7 @@ public struct EasyNodeEditor: View, Identifiable {
                 Text("test")
             }
             .background(Color.red)
+            .frame(minWidth: 200, maxHeight: 1500)
         }
         .fixedSize(horizontal: false, vertical: false)
     }
