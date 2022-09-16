@@ -1,3 +1,3 @@
 # EasyNodeEditor
 
-A description of this package.
+Very easy node editor.
