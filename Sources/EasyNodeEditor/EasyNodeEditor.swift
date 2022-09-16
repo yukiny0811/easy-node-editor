@@ -93,7 +93,7 @@ public struct EasyNodeEditor: View, Identifiable {
                                                         return AnyView(
                                                             Path { path in
                                                                 path.move(to: nm.originalPosition + nm.movePosition - CGPoint(x: 0, y: 15 + (Array(Mirror(reflecting: nm).children).count - i - 1) * 30) + CGPoint(x: 750, y: 750))
-                                                                path.addLine(to: n.movePosition + nPos + CGPoint(x: 0, y: 15 + ind * 30) - nm.frameSize.toCGPoint() + CGPoint(x: 750, y: 750))
+                                                                path.addLine(to: n.movePosition + nPos + CGPoint(x: 0, y: 15 + ind * 30) - n.frameSize.toCGPoint() + CGPoint(x: 750, y: 750))
                                                             }
                                                                 .stroke(.red, lineWidth: 3)
                                                         )
