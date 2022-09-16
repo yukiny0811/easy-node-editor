@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(macOS 10.15, *)
 public struct EasyNodeEditor: View, Identifiable {
-    public let nodeTypes: [Initializable]
+    private let nodeTypes: [Initializable]
     public init(nodeTypes: [Initializable]) {
         self.nodeTypes = nodeTypes
     }
