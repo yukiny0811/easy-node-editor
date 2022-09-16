@@ -119,8 +119,8 @@ public struct EasyNodeEditor: View, Identifiable {
                 VStack {
                     Text("test")
                 }
-                .background(Color.red)
                 .frame(minWidth: 200, maxWidth: 200, minHeight: globalReader.frame(in: .global).height, maxHeight: globalReader.frame(in: .global).height)
+                .background(Color(red: 0.8, green: 0.8, blue: 0.8))
             }
         }
         .fixedSize(horizontal: false, vertical: false)
