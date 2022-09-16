@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol Initializable {
+public protocol Initializable {
     init()
 }

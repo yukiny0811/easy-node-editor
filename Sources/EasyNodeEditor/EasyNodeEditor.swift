@@ -9,8 +9,10 @@ import SwiftUI
 
 @available(macOS 10.15, *)
 public struct EasyNodeEditor: View, Identifiable {
-    let nodeTypes: [Initializable] = []
-    public init() {}
+    public let nodeTypes: [Initializable]
+    public init(nodeTypes: [Initializable]) {
+        self.nodeTypes = nodeTypes
+    }
     public let id: String = UUID.init().uuidString
     @StateObject var manager = EasyNodeManager.shared
     @State var selectedNode: NodeModelBase?
