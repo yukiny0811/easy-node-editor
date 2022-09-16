@@ -9,8 +9,8 @@ import SwiftUI
 
 @available(macOS 10.15, *)
 public struct EasyNodeEditor: View, Identifiable {
-    private let nodeTypes: [Initializable]
-    public init(nodeTypes: [Initializable]) {
+    private let nodeTypes: [Initializable.Type]
+    public init(nodeTypes: [Initializable.Type]) {
         self.nodeTypes = nodeTypes
     }
     public let id: String = UUID.init().uuidString
