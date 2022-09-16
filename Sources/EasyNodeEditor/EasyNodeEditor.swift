@@ -118,11 +118,10 @@ public struct EasyNodeEditor: View, Identifiable {
             VStack {
                 Text("test")
             }
-            .frame(width: 200, height: .infinity, alignment: .leading)
+            .frame(minWidth: 200, idealWidth: 200, maxWidth: 200, minHeight: .infinity, idealHeight: .infinity, maxHeight: .infinity, alignment: .leading)
             .fixedSize()
             .position(x: 0, y: 0)
             .background(Color.red)
         }
-        .frame(minWidth: 1500, minHeight: 1500, alignment: .leading)
     }
 }
