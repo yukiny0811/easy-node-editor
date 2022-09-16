@@ -11,10 +11,10 @@ public class TestModel: NodeModelBase {
     @objc @Input var input: Int = 0
     @objc @Middle var count: Int = 0
     @objc @Output var output: Int = 0
-    override func processOnChange() {
+    open override func processOnChange() {
         output = input + count
     }
-    override func middleContent() -> AnyView {
+    open override func middleContent() -> AnyView {
         return AnyView(
             VStack {
                 Button("+\(self.count)") {
