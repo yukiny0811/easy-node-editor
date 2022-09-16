@@ -22,10 +22,6 @@ public struct EasyNodeEditor: View, Identifiable {
                 ScrollView([.horizontal, .vertical], showsIndicators: true) {
                     GeometryReader { reader in
                         ZStack {
-                            Button("add") {
-                                let temp = TestModel()
-                                manager.nodeModels[temp.id] = temp
-                            }
                             ForEach(Array(manager.nodeModels.values)) { nm in
                                 VStack(alignment: .leading, spacing: 0) {
                                     Rectangle()
