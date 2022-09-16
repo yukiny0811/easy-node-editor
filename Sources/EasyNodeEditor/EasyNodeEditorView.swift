@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct EditorView: View, Identifiable {
+public struct EasyNodeEditorView: View, Identifiable {
     public let id: String = UUID.init().uuidString
     @StateObject var manager = EasyNodeManager.shared
     @State var selectedNode: NodeModelBase?
