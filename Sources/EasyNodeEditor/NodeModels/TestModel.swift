@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class TestModel: NodeModelBase {
+public class TestModel: NodeModelBase {
     @objc @Input var input: Int = 0
     @objc @Middle var count: Int = 0
     @objc @Output var output: Int = 0
