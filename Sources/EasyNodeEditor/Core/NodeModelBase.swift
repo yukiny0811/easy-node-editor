@@ -46,6 +46,9 @@ open class NodeModelBase: NSObject, Identifiable, ObservableObject, Initializabl
                     OutputNode(idString: (nodeID: self.id, outputName: outputArray[o]))
                 }
             }
+            .frame(minWidth: 200, maxWidth: 200)
+            .border(Color.gray, width: 2)
+            .fixedSize()
         )
     }
     open func middleContent() -> AnyView {
