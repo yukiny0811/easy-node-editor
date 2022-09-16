@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public class NodeModelBase: NSObject, Identifiable, ObservableObject, Initializable {
+open class NodeModelBase: NSObject, Identifiable, ObservableObject, Initializable {
     public required override init() {}
     public let id: String = UUID.init().uuidString
     var originalPosition: CGPoint = CGPoint(x: 0, y: 0)
