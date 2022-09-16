@@ -60,6 +60,6 @@ struct OutputNode: View {
                 )
         }
         .frame(width: 200, height: 30, alignment: .trailing)
-        .background(Color(red: 0.1, green: 0.1, blue: 0.1))
+        .background(Color(red: 0.8, green: 0.8, blue: 0.8))
     }
 }
