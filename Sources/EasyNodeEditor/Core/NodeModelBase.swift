@@ -16,6 +16,39 @@ public class NodeModelBase: NSObject, Identifiable, ObservableObject, Initializa
     @Published var frameSize: CGSize = CGSize.zero
     func processOnChange() {}
     func content() -> AnyView {
+        let mir = Mirror(reflecting: self).children
+        let mirArray = Array(mir)
+        var inputArray: [String] = []
+        var outputArray: [String] = []
+        for i in 0..<mirArray.count {
+            let elem = mirArray[i]
+            let rawString = String(describing: elem.value.self)
+            if rawString.contains("Input<") {
+                if var rawLabel = elem.label {
+                    rawLabel.removeFirst()
+                    inputArray.append(rawLabel)
+                }
+            }
+            if rawString.contains("Output<") {
+                if var rawLabel = elem.label {
+                    rawLabel.removeFirst()
+                    outputArray.append(rawLabel)
+                }
+            }
+        }
+        return AnyView(
+            VStack {
+                ForEach (0..<inputArray.count) { i in
+                    InputNode(idString: (nodeID: self.id, inputName: inputArray[i]))
+                }
+                middleContent()
+                ForEach (0..<outputArray.count) { o in
+                    OutputNode(idString: (nodeID: self.id, outputName: outputArray[o]))
+                }
+            }
+        )
+    }
+    func middleContent() -> AnyView {
         return AnyView(Group{})
     }
 }

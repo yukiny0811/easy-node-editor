@@ -14,15 +14,13 @@ public class TestModel: NodeModelBase {
     override func processOnChange() {
         output = input + count
     }
-    override func content() -> AnyView {
+    override func middleContent() -> AnyView {
         return AnyView(
             VStack {
-                InputNode(idString: (self.id, "input"))
                 Button("+\(self.count)") {
                     self.count += 1
                 }
                 Text("Output -> \(self.output)")
-                OutputNode(idString: (self.id, "output"))
             }
         )
     }
