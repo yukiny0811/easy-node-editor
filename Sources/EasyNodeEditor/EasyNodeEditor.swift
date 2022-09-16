@@ -9,8 +9,8 @@ import SwiftUI
 
 @available(macOS 10.15, *)
 public struct EasyNodeEditor: View, Identifiable {
-    private let nodeTypes: [Initializable.Type]
-    public init(nodeTypes: [Initializable.Type]) {
+    private let nodeTypes: [NodeModelBase.Type]
+    public init(nodeTypes: [NodeModelBase.Type]) {
         self.nodeTypes = nodeTypes
     }
     public let id: String = UUID.init().uuidString
@@ -119,7 +119,15 @@ public struct EasyNodeEditor: View, Identifiable {
                     .frame(minWidth: 1500, minHeight: 1500, alignment: .leading)
                 }
                 VStack {
-                    Text("test")
+                    ForEach(0..<nodeTypes.count) { i in
+                        HStack {
+                            Text("test")
+                            Button("add") {
+                                let temp = nodeTypes[i].init()
+                                manager.nodeModels[temp.id] = temp
+                            }
+                        }
+                    }
                 }
                 .frame(minWidth: 200, maxWidth: 200, minHeight: globalReader.frame(in: .global).height, maxHeight: globalReader.frame(in: .global).height)
                 .background(Color(red: 0.8, green: 0.8, blue: 0.8))
