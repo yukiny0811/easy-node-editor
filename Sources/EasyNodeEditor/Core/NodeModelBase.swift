@@ -14,7 +14,7 @@ open class NodeModelBase: NSObject, Identifiable, ObservableObject, Initializabl
     var movePosition: CGPoint = CGPoint.zero
     var outputConnection: [String: (nodeID: String, inputName: String)] = [:]
     @Published var frameSize: CGSize = CGSize.zero
-    func processOnChange() {}
+    open func processOnChange() {}
     func content() -> AnyView {
         let mir = Mirror(reflecting: self).children
         let mirArray = Array(mir)
@@ -48,7 +48,7 @@ open class NodeModelBase: NSObject, Identifiable, ObservableObject, Initializabl
             }
         )
     }
-    func middleContent() -> AnyView {
+    open func middleContent() -> AnyView {
         return AnyView(Group{})
     }
 }
