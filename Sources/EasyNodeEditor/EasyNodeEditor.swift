@@ -1,6 +1,4 @@
-public struct EasyNodeEditor {
-    public private(set) var text = "Hello, World!"
 
-    public init() {
-    }
+@available(macOS 10.15, *)
+public struct EasyNodeEditor {
 }
