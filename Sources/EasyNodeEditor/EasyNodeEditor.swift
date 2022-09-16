@@ -9,6 +9,7 @@ import SwiftUI
 
 @available(macOS 10.15, *)
 public struct EasyNodeEditor: View, Identifiable {
+    let nodeTypes: [Initializable] = []
     public init() {}
     public let id: String = UUID.init().uuidString
     @StateObject var manager = EasyNodeManager.shared
@@ -17,10 +18,16 @@ public struct EasyNodeEditor: View, Identifiable {
         ScrollView([.horizontal, .vertical], showsIndicators: true) {
             GeometryReader { reader in
                 ZStack {
-                    Button("add") {
-                        let temp = TestModel()
-                        manager.nodeModels[temp.id] = temp
+                    VStack {
+                        Text("test")
                     }
+                    .frame(width: 200, height: .infinity, alignment: .leading)
+                    .fixedSize()
+                    .background(Color.red)
+//                    Button("add") {
+//                        let temp = TestModel()
+//                        manager.nodeModels[temp.id] = temp
+//                    }
                     ForEach(Array(manager.nodeModels.values)) { nm in
                         VStack(alignment: .leading, spacing: 0) {
                             Rectangle()
