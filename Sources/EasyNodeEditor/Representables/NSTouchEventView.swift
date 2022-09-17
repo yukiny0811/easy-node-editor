@@ -34,7 +34,6 @@ class NSTouchEventView: NSView {
     
     override func mouseEntered(with event: NSEvent) {
         EasyNodeManager.shared.selectedInputID = self.idString
-        print("entered")
     }
     
     override func mouseUp(with event: NSEvent) {
@@ -47,7 +46,6 @@ class NSTouchEventView: NSView {
     
     override func mouseExited(with event: NSEvent) {
         EasyNodeManager.shared.selectedInputID = nil
-        print("exited")
     }
     
     deinit {
