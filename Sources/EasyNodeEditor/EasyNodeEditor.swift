@@ -51,7 +51,6 @@ public struct EasyNodeEditor: View, Identifiable {
                                             guard let selected = self.selectedNode else {
                                                 return
                                             }
-                                            print("ended")
                                             selected.originalPosition += selected.movePosition
                                             selected.movePosition = CGPoint.zero
                                             self.selectedNode = nil

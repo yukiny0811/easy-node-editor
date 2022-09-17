@@ -50,7 +50,6 @@ struct OutputNode: View {
                             return
                         }
                         EasyNodeManager.shared.nodeModels[oID.0]!.outputConnection[oID.1] = iID
-                        print(EasyNodeManager.shared.nodeModels[oID.0]!.outputConnection)
                         let tempValue = EasyNodeManager.shared.nodeModels[oID.0]!.value(forKey: oID.1)
                         EasyNodeManager.shared.nodeModels[oID.0]!.setValue(tempValue, forKey: oID.1)
                         EasyNodeManager.shared.selectedOutputID = nil
