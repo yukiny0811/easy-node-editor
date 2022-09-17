@@ -49,4 +49,10 @@ class NSTouchEventView: NSView {
         EasyNodeManager.shared.selectedInputID = nil
         print("exited")
     }
+    
+    deinit {
+        self.trackingAreas.forEach { ta in
+            self.removeTrackingArea(ta)
+        }
+    }
 }

@@ -11,12 +11,6 @@ struct InputNode: View {
     let idString: (nodeID: String, inputName: String)
     var body: some View {
         HStack {
-//            Rectangle()
-//                .fill(.yellow)
-//                .frame(width: 20, height: 20, alignment: .leading)
-//                .onHover{ hovering in
-//                    EasyNodeManager.shared.selectedInputID = self.idString
-//                }
             TouchEventView(view: NSTouchEventView(frame: NSRect(x: 0, y: 0, width: 20, height: 20), idString: self.idString))
                 .frame(width: 20, height: 20, alignment: .leading)
                 .background(Color.yellow)
