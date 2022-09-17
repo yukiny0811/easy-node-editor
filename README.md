@@ -6,6 +6,10 @@
 [![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fyukiny0811%2Feasy-node-editor%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/yukiny0811/easy-node-editor)
 [![License](https://img.shields.io/github/license/yukiny0811/easy-node-editor)](https://github.com/yukiny0811/easy-node-editor/blob/main/LICENSE)
 
+## Demo
+
+![GIF 2022-09-17 at 8 27 39 PM](https://user-images.githubusercontent.com/28947703/190854305-3e2bb603-fdab-4f53-b7f2-dd587ad39537.gif)
+
 ## Usage1 - Standard output node
 
 ### Step 1. Create your node
