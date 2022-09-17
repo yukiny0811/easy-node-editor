@@ -14,6 +14,9 @@ open class NodeModelBase: NSObject, Identifiable, ObservableObject {
     var movePosition: CGPoint = CGPoint.zero
     var outputConnection: [String: (nodeID: String, inputName: String)] = [:]
     @Published var frameSize: CGSize = CGSize.zero
+    open func displayTitle() -> String {
+        return self.className
+    }
     open func processOnChange() {}
     func content() -> AnyView {
         let mir = Mirror(reflecting: self).children
@@ -37,10 +40,11 @@ open class NodeModelBase: NSObject, Identifiable, ObservableObject {
             }
         }
         return AnyView(
-            VStack {
+            VStack(alignment: .center, spacing: 0) {
                 ForEach (0..<inputArray.count) { i in
                     InputNode(idString: (nodeID: self.id, inputName: inputArray[i]))
                 }
+                Text(self.displayTitle())
                 middleContent()
                 ForEach (0..<outputArray.count) { o in
                     OutputNode(idString: (nodeID: self.id, outputName: outputArray[o]))
