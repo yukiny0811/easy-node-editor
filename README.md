@@ -6,18 +6,23 @@
 [![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fyukiny0811%2Feasy-node-editor%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/yukiny0811/easy-node-editor)
 [![License](https://img.shields.io/github/license/yukiny0811/easy-node-editor)](https://github.com/yukiny0811/easy-node-editor/blob/main/LICENSE)
 
+## Sample Code
+
 ```.swift
 import SwiftUI
 import EasyNodeEditor
 
 struct ContentView: View {
     var body: some View {
-        EasyNodeEditor(nodeTypes: [Output3Node.self, MultiplyNode.self, ShowNode.self])
+        EasyNodeEditor(nodeTypes: [Output3Node.self, MultiplyNode.self, ShowNode.self, AddAllNode.self])
     }
 }
 
 class Output3Node: NodeModelBase {
     @objc @Output var output: Int = 3
+    override func displayTitle() -> String {
+        return "Outputs 3"
+    }
 }
 
 class MultiplyNodeSubModel: ObservableObject {
@@ -41,6 +46,15 @@ class MultiplyNode: NodeModelBase {
             .frame(minWidth: 200, maxWidth: 200)
             .fixedSize()
         )
+    }
+}
+
+class AddAllNode: NodeModelBase {
+    @objc @Input var input1: Int = 0
+    @objc @Input var input2: Int = 0
+    @objc @Output var output: Int = 0
+    override func processOnChange() {
+        output = input1 + input2
     }
 }
 
