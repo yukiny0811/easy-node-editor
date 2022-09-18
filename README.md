@@ -2,10 +2,8 @@
 
 [![CI](https://github.com/yukiny0811/easy-node-editor/actions/workflows/swift.yml/badge.svg?branch=main)](https://github.com/yukiny0811/easy-node-editor/actions/workflows/swift.yml)
 [![Release](https://img.shields.io/github/v/release/yukiny0811/easy-node-editor)](https://github.com/yukiny0811/easy-node-editor/releases/latest)
-<img src="http://img.shields.io/badge/platform-macOS-blue.svg?style=flat" alt="Platform" />
-<a href="https://developer.apple.com/swift">
-    <img src="http://img.shields.io/badge/Swift-5.5-brightgreen.svg?style=flat" alt="Language">
-</a>
+[![Swift Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fyukiny0811%2Feasy-node-editor%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/yukiny0811/easy-node-editor)
+[![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fyukiny0811%2Feasy-node-editor%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/yukiny0811/easy-node-editor)
 [![License](https://img.shields.io/github/license/yukiny0811/easy-node-editor)](https://github.com/yukiny0811/easy-node-editor/blob/main/LICENSE)
 
 **Still in alpha stage of development!**
