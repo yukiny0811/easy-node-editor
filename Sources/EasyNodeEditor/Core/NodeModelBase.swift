@@ -51,7 +51,6 @@ open class NodeModelBase: NSObject, Identifiable, ObservableObject {
                 }
             }
             .frame(minWidth: 200, maxWidth: 200)
-            .border(Color.gray, width: 2)
             .fixedSize()
         )
     }

@@ -7,15 +7,21 @@
 
 import SwiftUI
 
-@available(macOS 10.15, *)
+class SelectedNodeModel : ObservableObject{
+    @Published var selectedNode: NodeModelBase?
+}
+
+@available(macOS 12.0, *)
 public struct EasyNodeEditor: View, Identifiable {
     private let nodeTypes: [NodeModelBase.Type]
-    public init(nodeTypes: [NodeModelBase.Type]) {
+    public init(nodeTypes: [NodeModelBase.Type], editorConfig: EditorConfig = EditorConfig.defaultConfig) {
         self.nodeTypes = nodeTypes
+        self.editorConfig = editorConfig
     }
     public let id: String = UUID.init().uuidString
     @StateObject var manager = EasyNodeManager.shared
-    @State var selectedNode: NodeModelBase?
+    @ObservedObject var selectedNodeModel = SelectedNodeModel()
+    private let editorConfig: EditorConfig
     public var body: some View {
         ZStack {
             GeometryReader { globalReader in
@@ -26,11 +32,17 @@ public struct EasyNodeEditor: View, Identifiable {
                                 VStack(alignment: .leading, spacing: 0) {
                                     HStack {
                                         Rectangle()
+                                            .fill(Color(red: 0.95, green: 0.95, blue: 0.95))
+                                            .cornerRadius(5)
                                             .frame(width: 20, height: 20)
+                                        Spacer()
                                         Button("X") {
                                             EasyNodeManager.shared.nodeModels[nm.id] = nil
                                             manager.objectWillChange.send()
-                                        }.frame(width: 50, height: 20)
+                                        }
+                                        .frame(height: 20)
+                                        .buttonStyle(.borderedProminent)
+                                        .tint(Color.red)
                                     }
                                     nm.content()
                                         .fixedSize()
@@ -41,25 +53,27 @@ public struct EasyNodeEditor: View, Identifiable {
                                             }
                                         )
                                 }
-                                .border(.gray, width: 3)
+                                .background(editorConfig.nodeBackgroundColor)
+                                .cornerRadius(5)
                                 .position(nm.originalPosition + nm.movePosition)
                                 .fixedSize()
                                 .gesture(
                                     DragGesture(minimumDistance: 0)
                                         .onChanged { value in
-                                            if self.selectedNode == nil {
-                                                self.selectedNode = nm
+                                            if self.selectedNodeModel.selectedNode == nil {
+                                                self.selectedNodeModel.selectedNode = nm
                                             }
-                                            self.selectedNode?.movePosition = value.translation.toCGPoint()
-                                            manager.objectWillChange.send()
+                                            self.selectedNodeModel.selectedNode?.movePosition = value.translation.toCGPoint()
+                                            self.selectedNodeModel.objectWillChange.send()
+//                                            manager.objectWillChange.send()
                                         }
                                         .onEnded { _ in
-                                            guard let selected = self.selectedNode else {
+                                            guard let selected = self.selectedNodeModel.selectedNode else {
                                                 return
                                             }
                                             selected.originalPosition += selected.movePosition
                                             selected.movePosition = CGPoint.zero
-                                            self.selectedNode = nil
+                                            self.selectedNodeModel.selectedNode = nil
                                             manager.objectWillChange.send()
                                         }
                                 )
@@ -124,21 +138,45 @@ public struct EasyNodeEditor: View, Identifiable {
                     }
                     .frame(minWidth: 1500, minHeight: 1500, alignment: .leading)
                 }
+                .background(editorConfig.editorBackgroundColor)
                 VStack {
-                    ForEach(0..<nodeTypes.count) { i in
-                        HStack {
-                            Text(String(describing: nodeTypes[i]))
-                            Button("add") {
-                                let temp = nodeTypes[i].init()
-                                manager.nodeModels[temp.id] = temp
+                    HStack {
+                        Text("Nodes")
+                            .font(.title)
+                            .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9))
+                            .padding(EdgeInsets(top: 10, leading: 25, bottom: 0, trailing: 0))
+                        Spacer()
+                    }
+                    List {
+                        ForEach(0..<nodeTypes.count) { i in
+                            HStack() {
+                                Text(String(describing: nodeTypes[i]))
+                                    .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9))
+                                Spacer()
+                                Button("add") {
+                                    let temp = nodeTypes[i].init()
+                                    manager.nodeModels[temp.id] = temp
+                                }
                             }
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                            .frame(minWidth: 200, maxWidth: 200)
+                            Divider()
                         }
                     }
                 }
-                .frame(minWidth: 200, maxWidth: 200, minHeight: globalReader.frame(in: .global).height, maxHeight: globalReader.frame(in: .global).height)
-                .background(Color(red: 0.8, green: 0.8, blue: 0.8))
+                .padding(0)
+                .frame(minWidth: 230, maxWidth: 230, minHeight: globalReader.frame(in: .global).height, maxHeight: globalReader.frame(in: .global).height)
+                .background(Color(red: 0.3, green: 0.3, blue: 0.3))
             }
         }
         .fixedSize(horizontal: false, vertical: false)
+    }
+}
+
+fileprivate extension NSTableView {
+    open override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        backgroundColor = NSColor.clear
+        enclosingScrollView!.drawsBackground = false
     }
 }
