@@ -24,8 +24,14 @@ public struct EasyNodeEditor: View, Identifiable {
                         ZStack {
                             ForEach(Array(manager.nodeModels.values)) { nm in
                                 VStack(alignment: .leading, spacing: 0) {
-                                    Rectangle()
-                                        .frame(width: 20, height: 20)
+                                    HStack {
+                                        Rectangle()
+                                            .frame(width: 20, height: 20)
+                                        Button("X") {
+                                            EasyNodeManager.shared.nodeModels[nm.id] = nil
+                                            manager.objectWillChange.send()
+                                        }.frame(width: 50, height: 20)
+                                    }
                                     nm.content()
                                         .fixedSize()
                                         .background(
@@ -75,7 +81,12 @@ public struct EasyNodeEditor: View, Identifiable {
                                             }
                                             let destNodeId = nm.outputConnection[rawLabel]!.nodeID
                                             let destInputName = nm.outputConnection[rawLabel]!.inputName
-                                            let n = manager.nodeModels[destNodeId]!
+                                            let n = manager.nodeModels[destNodeId]
+                                            guard let n = n else {
+                                                nm.outputConnection[rawLabel] = nil
+                                                self.manager.objectWillChange.send()
+                                                return AnyView(Group{})
+                                            }
                                             let nElemArray = Array(Mirror(reflecting: n).children)
                                             for ind in 0..<nElemArray.count {
                                                 let nElem = nElemArray[ind]
