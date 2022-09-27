@@ -17,6 +17,5 @@ struct InputNode: View {
             Text(idString.inputName)
         }
         .frame(width: 200, height: 30, alignment: .leading)
-        .background(Color(red: 0.8, green: 0.8, blue: 0.8))
     }
 }
