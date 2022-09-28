@@ -8,11 +8,15 @@
 import SwiftUI
 
 open class NodeModelBase: NSObject, Identifiable, ObservableObject {
-    public required override init() {}
+    public required init(editorConfig: EditorConfig) {
+        self.editorConfig = editorConfig
+        super.init()
+    }
     public let id: String = UUID.init().uuidString
     var originalPosition: CGPoint = CGPoint(x: 0, y: 0)
     var movePosition: CGPoint = CGPoint.zero
     var outputConnection: [String: (nodeID: String, inputName: String)] = [:]
+    var editorConfig: EditorConfig
     @Published var frameSize: CGSize = CGSize.zero
     open func displayTitle() -> String {
         return self.className
@@ -42,12 +46,12 @@ open class NodeModelBase: NSObject, Identifiable, ObservableObject {
         return AnyView(
             VStack(alignment: .center, spacing: 0) {
                 ForEach (0..<inputArray.count) { i in
-                    InputNode(idString: (nodeID: self.id, inputName: inputArray[i]))
+                    InputNode(idString: (nodeID: self.id, inputName: inputArray[i]), editorConfig: self.editorConfig)
                 }
                 Text(self.displayTitle())
                 middleContent()
                 ForEach (0..<outputArray.count) { o in
-                    OutputNode(idString: (nodeID: self.id, outputName: outputArray[o]))
+                    OutputNode(idString: (nodeID: self.id, outputName: outputArray[o]), editorConfig: self.editorConfig)
                 }
             }
             .frame(minWidth: 200, maxWidth: 200)

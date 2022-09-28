@@ -9,11 +9,12 @@ import SwiftUI
 
 struct OutputNode: View {
     let idString: (nodeID: String, outputName: String)
+    let editorConfig: EditorConfig
     var body: some View {
         HStack {
             Text(idString.outputName)
             Rectangle()
-                .fill(.yellow)
+                .fill(editorConfig.ioRectFillColor)
                 .frame(width: 20, height: 20, alignment: .leading)
                 .gesture(DragGesture()
                     .onChanged(){ _ in
