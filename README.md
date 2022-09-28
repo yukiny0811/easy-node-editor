@@ -13,9 +13,11 @@ EasyNodeEditor is a library for creating node editors with SwiftUI. I am develop
 
 ## Demo
 
+(v0.1.0)    
 ![GIF 2022-09-17 at 8 27 39 PM](https://user-images.githubusercontent.com/28947703/190854305-3e2bb603-fdab-4f53-b7f2-dd587ad39537.gif)
 
-![GIF 2022-09-19 at 6 18 32 AM](https://user-images.githubusercontent.com/28947703/191030460-9cad82e4-6264-446f-8631-a46f06630b3b.gif)
+(v0.1.4)    
+![GIF 2022-09-28 at 3 41 15 PM](https://user-images.githubusercontent.com/28947703/192706884-1942c998-88f5-4cbb-82f0-9141ad07e657.gif)
 
 ## Usage1 - Standard output node
 
