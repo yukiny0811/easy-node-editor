@@ -15,6 +15,7 @@ public struct EditorConfig {
                 connectionColor: Color = Color(red: 1.0, green: 0.3, blue: 0.3),
                 nodeSelectBackgroundColor: Color = Color(red: 0.3, green: 0.3, blue: 0.3),
                 nodeSelectTextColor: Color = Color(red: 0.9, green: 0.9, blue: 0.9),
+                ioRectFillColor: Color = Color(red: 1.0, green: 0.3, blue: 0.3),
                 nodeSelectViewWidth: CGFloat = 230,
                 editorWidth: CGFloat = 1500,
                 editorHeight: CGFloat = 1500
@@ -25,6 +26,7 @@ public struct EditorConfig {
         self.connectionColor = connectionColor
         self.nodeSelectBackgroundColor = nodeSelectBackgroundColor
         self.nodeSelectTextColor = nodeSelectTextColor
+        self.ioRectFillColor = ioRectFillColor
         self.nodeSelectViewWidth = nodeSelectViewWidth
         self.editorWidth = editorWidth
         self.editorHeight = editorHeight
@@ -35,6 +37,7 @@ public struct EditorConfig {
     public var connectionColor: Color
     public var nodeSelectBackgroundColor: Color
     public var nodeSelectTextColor: Color
+    public var ioRectFillColor: Color
     public var nodeSelectViewWidth: CGFloat
     public var editorWidth: CGFloat
     public var editorHeight: CGFloat

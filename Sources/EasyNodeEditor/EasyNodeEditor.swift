@@ -157,7 +157,7 @@ public struct EasyNodeEditor: View, Identifiable {
                                     .foregroundColor(editorConfig.nodeSelectTextColor)
                                 Spacer()
                                 Button("add") {
-                                    let temp = nodeTypes[i].init()
+                                    let temp = nodeTypes[i].init(editorConfig: self.editorConfig)
                                     manager.nodeModels[temp.id] = temp
                                 }
                             }
