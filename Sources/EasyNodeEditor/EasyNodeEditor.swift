@@ -14,9 +14,13 @@ class SelectedNodeModel : ObservableObject{
 @available(macOS 12.0, *)
 public struct EasyNodeEditor: View, Identifiable {
     private let nodeTypes: [NodeModelBase.Type]
-    public init(nodeTypes: [NodeModelBase.Type], editorConfig: EditorConfig = EditorConfig.defaultConfig) {
+    public init(nodeTypes: [NodeModelBase.Type], editorConfig: EditorConfig? = nil) {
         self.nodeTypes = nodeTypes
-        self.editorConfig = editorConfig
+        if let editorConfig = editorConfig {
+            self.editorConfig = editorConfig
+        } else {
+            self.editorConfig = EditorConfig.defaultConfig
+        }
     }
     public let id: String = UUID.init().uuidString
     @StateObject var manager = EasyNodeManager.shared
@@ -32,7 +36,7 @@ public struct EasyNodeEditor: View, Identifiable {
                                 VStack(alignment: .leading, spacing: 0) {
                                     HStack {
                                         Rectangle()
-                                            .fill(Color(red: 0.95, green: 0.95, blue: 0.95))
+                                            .fill(editorConfig.moveFillColor)
                                             .cornerRadius(5)
                                             .frame(width: 20, height: 20)
                                         Spacer()
@@ -65,7 +69,6 @@ public struct EasyNodeEditor: View, Identifiable {
                                             }
                                             self.selectedNodeModel.selectedNode?.movePosition = value.translation.toCGPoint()
                                             self.selectedNodeModel.objectWillChange.send()
-//                                            manager.objectWillChange.send()
                                         }
                                         .onEnded { _ in
                                             guard let selected = self.selectedNodeModel.selectedNode else {
@@ -116,10 +119,10 @@ public struct EasyNodeEditor: View, Identifiable {
                                                         let nPos = n.originalPosition
                                                         return AnyView(
                                                             Path { path in
-                                                                path.move(to: nm.originalPosition + nm.movePosition - CGPoint(x: 0, y: 15 + (Array(Mirror(reflecting: nm).children).count - i - 1) * 30) + CGPoint(x: 750, y: 750))
-                                                                path.addLine(to: n.movePosition + nPos + CGPoint(x: 0, y: 15 + ind * 30) - n.frameSize.toCGPoint() + CGPoint(x: 750, y: 750))
+                                                                path.move(to: nm.originalPosition + nm.movePosition - CGPoint(x: 0, y: 15 + (Array(Mirror(reflecting: nm).children).count - i - 1) * 30) + CGPoint(x: editorConfig.editorWidth / 2, y: editorConfig.editorHeight / 2))
+                                                                path.addLine(to: n.movePosition + nPos + CGPoint(x: 0, y: 15 + ind * 30) - n.frameSize.toCGPoint() + CGPoint(x: editorConfig.editorWidth / 2, y: editorConfig.editorHeight / 2))
                                                             }
-                                                                .stroke(.red, lineWidth: 3)
+                                                                .stroke(editorConfig.connectionColor, lineWidth: 3)
                                                         )
                                                     }
                                                 }
@@ -129,21 +132,21 @@ public struct EasyNodeEditor: View, Identifiable {
                                             Group{}
                                         )
                                     }
-                                    .frame(width: 1500, height: 1500, alignment: .trailing)
+                                    .frame(width: editorConfig.editorWidth, height: editorConfig.editorHeight, alignment: .trailing)
                                     .fixedSize()
                                 }
                             }
                         }
-                        .frame(minWidth: 1500, minHeight: 1500, alignment: .center)
+                        .frame(minWidth: editorConfig.editorWidth, minHeight: editorConfig.editorHeight, alignment: .center)
                     }
-                    .frame(minWidth: 1500, minHeight: 1500, alignment: .leading)
+                    .frame(minWidth: editorConfig.editorWidth, minHeight: editorConfig.editorHeight, alignment: .leading)
                 }
                 .background(editorConfig.editorBackgroundColor)
                 VStack {
                     HStack {
                         Text("Nodes")
                             .font(.title)
-                            .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9))
+                            .foregroundColor(editorConfig.nodeSelectTextColor)
                             .padding(EdgeInsets(top: 10, leading: 25, bottom: 0, trailing: 0))
                         Spacer()
                     }
@@ -151,7 +154,7 @@ public struct EasyNodeEditor: View, Identifiable {
                         ForEach(0..<nodeTypes.count) { i in
                             HStack() {
                                 Text(String(describing: nodeTypes[i]))
-                                    .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9))
+                                    .foregroundColor(editorConfig.nodeSelectTextColor)
                                 Spacer()
                                 Button("add") {
                                     let temp = nodeTypes[i].init()
@@ -165,8 +168,8 @@ public struct EasyNodeEditor: View, Identifiable {
                     }
                 }
                 .padding(0)
-                .frame(minWidth: 230, maxWidth: 230, minHeight: globalReader.frame(in: .global).height, maxHeight: globalReader.frame(in: .global).height)
-                .background(Color(red: 0.3, green: 0.3, blue: 0.3))
+                .frame(minWidth: editorConfig.nodeSelectViewWidth, maxWidth: editorConfig.nodeSelectViewWidth, minHeight: globalReader.frame(in: .global).height, maxHeight: globalReader.frame(in: .global).height)
+                .background(editorConfig.nodeSelectBackgroundColor)
             }
         }
         .fixedSize(horizontal: false, vertical: false)
