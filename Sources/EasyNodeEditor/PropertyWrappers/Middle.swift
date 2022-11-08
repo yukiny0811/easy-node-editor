@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 @propertyWrapper
-public class Middle<Value> : DynamicProperty{
+public class Middle<Value> {
     @Published private var value: Value
     public init (wrappedValue: Value) {
         _value = Published(wrappedValue: wrappedValue)
@@ -21,12 +21,6 @@ public class Middle<Value> : DynamicProperty{
         set {
             value = newValue
         }
-    }
-    public var projectedValue: Binding<Value> {
-        Binding(
-            get: {self.value},
-            set: {self.value = $0}
-        )
     }
     public static subscript<EnclosingSelf: ObservableObject>(
         _enclosingInstance object: EnclosingSelf,
