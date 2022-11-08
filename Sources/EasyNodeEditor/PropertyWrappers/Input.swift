@@ -9,23 +9,23 @@ import SwiftUI
 import Combine
 
 @propertyWrapper
-public struct Input<Value> {
-    private var value: Value
+public class Input<Value> {
+    @Published private var value: Value
     public init(wrappedValue: Value) {
-        value = wrappedValue
+        _value = Published(wrappedValue: wrappedValue)
     }
     public var wrappedValue: Value {
         get {
-            fatalError()
+            value
         }
         set {
-            fatalError()
+            value = newValue
         }
     }
     public static subscript<EnclosingSelf: ObservableObject>(
         _enclosingInstance object: EnclosingSelf,
         wrapped wrappedKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Value>,
-        storage storageKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Self>
+        storage storageKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Input>
     ) -> Value {
         get {
             return object[keyPath: storageKeyPath].value

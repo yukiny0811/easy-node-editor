@@ -61,4 +61,14 @@ open class NodeModelBase: NSObject, Identifiable, ObservableObject {
     open func middleContent() -> AnyView {
         return AnyView(Group{})
     }
+    open func binding<W, T>(_ v: KeyPath<W, T>) -> Binding<T> {
+        return Binding(
+            get: {
+                self.value(forKeyPath: NSExpression(forKeyPath: v).keyPath) as! T
+            },
+            set: {
+                self.setValue($0, forKeyPath: NSExpression(forKeyPath: v).keyPath)
+            }
+        )
+    }
 }

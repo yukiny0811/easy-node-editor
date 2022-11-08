@@ -6,25 +6,28 @@
 //
 
 import SwiftUI
+import Combine
 
 @propertyWrapper
-public struct Output<Value> {
-    private var value: Value
+public class Output<Value> {
+    
+    @Published private var value: Value
+    
     public init (wrappedValue: Value) {
-        value = wrappedValue
+        _value = Published(wrappedValue: wrappedValue)
     }
     public var wrappedValue: Value {
         get {
-            fatalError()
+            value
         }
         set {
-            fatalError()
+            value = newValue
         }
     }
     public static subscript<EnclosingSelf: ObservableObject>(
         _enclosingInstance object: EnclosingSelf,
         wrapped wrappedKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Value>,
-        storage storageKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Self>
+        storage storageKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Output>
     ) -> Value {
         get {
             return object[keyPath: storageKeyPath].value
@@ -36,6 +39,7 @@ public struct Output<Value> {
                 return
             }
             EasyNodeManager.shared.nodeModels[outputConnection.nodeID]!.setValue(newValue, forKey: outputConnection.inputName)
+            EasyNodeManager.shared.objectWillChange.send()
         }
     }
 }
