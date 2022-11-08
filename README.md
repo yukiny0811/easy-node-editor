@@ -130,9 +130,7 @@ class YourDisplayNode: NodeModelBase {
     @objc @Input var input: Int = 0
     override func middleContent() -> AnyView {
         return AnyView(
-            Group {
-                Text("number is now -> \(input)")
-            }
+            Text("number is now -> \(input)")
         )
     }
 }
@@ -158,15 +156,11 @@ The EasyNodeEditor Library will create a node like this.
 I assume you have read Usage 1 ~ 3 here.    
 For interactive nodes, EasyNodeEditor provides ```@Middle``` property wrapper.    
 Whenever the value of the variables with ```@Input``` or ```@Middle``` changes, ```processOnChange()``` function will fire.    
-If you need a binding object for interaction, create a class which inherits ```ObservableObject``` and define a ```@Published``` variable inside. Variables defined directly inside your node class will not be bindable.    
+If you need a binding object for interaction, use ```binding``` method and pass the KeyPath to get binding object.  
 After finished making, register your node as usual.    
 ```.swift
-class YourInteractiveNodeSubModel: ObservableObject {
-    @Published var sliderValue: Double = 0.0
-}
 class YourInteractiveNode: NodeModelBase {
     @objc @Input var input: Int = 0
-    @ObservedObject var subModel = YourInteractiveNodeSubModel()
     @objc @Middle var count: Int = 0
     @objc @Output var output: Int = 0
     override func processOnChange() {
@@ -175,9 +169,7 @@ class YourInteractiveNode: NodeModelBase {
     override func middleContent() -> AnyView {
         return AnyView(
             Group {
-                Slider(value: self.$subModel.sliderValue, in: 0...100, onEditingChanged: { changed in
-                    self.count = Int(self.subModel.sliderValue)
-                })
+                Slider(value: binding(\YourInteractiveNode.count), in: 0...100)
             }
             .frame(minWidth: 200, maxWidth: 200)
             .fixedSize()
@@ -219,19 +211,13 @@ class YourDisplayNode: NodeModelBase {
     @objc @Input var input: Int = 0
     override func middleContent() -> AnyView {
         return AnyView(
-            Group {
-                Text("number is now -> \(input)")
-            }
+            Text("number is now -> \(input)")
         )
     }
 }
 
-class YourInteractiveNodeSubModel: ObservableObject {
-    @Published var sliderValue: Double = 0.0
-}
 class YourInteractiveNode: NodeModelBase {
     @objc @Input var input: Int = 0
-    @ObservedObject var subModel = YourInteractiveNodeSubModel()
     @objc @Middle var count: Int = 0
     @objc @Output var output: Int = 0
     override func processOnChange() {
@@ -240,9 +226,7 @@ class YourInteractiveNode: NodeModelBase {
     override func middleContent() -> AnyView {
         return AnyView(
             Group {
-                Slider(value: self.$subModel.sliderValue, in: 0...100, onEditingChanged: { changed in
-                    self.count = Int(self.subModel.sliderValue)
-                })
+                Slider(value: binding(\YourInteractiveNode.count), in: 0...100)
             }
             .frame(minWidth: 200, maxWidth: 200)
             .fixedSize()
