@@ -6,36 +6,55 @@
 //
 
 import SwiftUI
+import Combine
 
 @propertyWrapper
-public struct Output<Value> {
-    private var value: Value
+public class Output<Value> : DynamicProperty{
+    
+    @Published private var value: Value
+    
     public init (wrappedValue: Value) {
-        value = wrappedValue
+        _value = Published(wrappedValue: wrappedValue)
     }
     public var wrappedValue: Value {
         get {
-            fatalError()
+            value
         }
         set {
-            fatalError()
+            value = newValue
+            print("wrapped value set")
+            
         }
+    }
+    public var projectedValue: Binding<Value> {
+        Binding(
+            get: {
+                self.value
+            },
+            set: {
+                self.value = $0
+                print("projected value set")
+            }
+        )
     }
     public static subscript<EnclosingSelf: ObservableObject>(
         _enclosingInstance object: EnclosingSelf,
         wrapped wrappedKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Value>,
-        storage storageKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Self>
+        storage storageKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Output>
     ) -> Value {
         get {
+            print("subscript get")
             return object[keyPath: storageKeyPath].value
         }
         set {
+            print("output set ")
             object[keyPath: storageKeyPath].value = newValue
             let selfName = NSExpression(forKeyPath: wrappedKeyPath).keyPath
             guard let outputConnection = (object as? NodeModelBase)?.outputConnection[selfName] else {
                 return
             }
             EasyNodeManager.shared.nodeModels[outputConnection.nodeID]!.setValue(newValue, forKey: outputConnection.inputName)
+            EasyNodeManager.shared.objectWillChange.send()
         }
     }
 }

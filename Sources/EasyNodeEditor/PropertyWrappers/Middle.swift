@@ -9,23 +9,29 @@ import SwiftUI
 import Combine
 
 @propertyWrapper
-public struct Middle<Value> {
-    private var value: Value
+public class Middle<Value> : DynamicProperty{
+    @Published private var value: Value
     public init (wrappedValue: Value) {
-        value = wrappedValue
+        _value = Published(wrappedValue: wrappedValue)
     }
     public var wrappedValue: Value {
         get {
-            fatalError()
+            value
         }
         set {
-            fatalError()
+            value = newValue
         }
+    }
+    public var projectedValue: Binding<Value> {
+        Binding(
+            get: {self.value},
+            set: {self.value = $0}
+        )
     }
     public static subscript<EnclosingSelf: ObservableObject>(
         _enclosingInstance object: EnclosingSelf,
         wrapped wrappedKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Value>,
-        storage storageKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Self>
+        storage storageKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Middle>
     ) -> Value {
         get {
             return object[keyPath: storageKeyPath].value
