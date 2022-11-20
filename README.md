@@ -6,6 +6,8 @@
 [![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fyukiny0811%2Feasy-node-editor%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/yukiny0811/easy-node-editor)
 [![License](https://img.shields.io/github/license/yukiny0811/easy-node-editor)](https://github.com/yukiny0811/easy-node-editor/blob/main/LICENSE)
 
+[English](https://github.com/yukiny0811/easy-node-editor/blob/main/README.md) / [Japanese](https://github.com/yukiny0811/easy-node-editor/blob/main/README_JAPANESE.md)
+
 **Still in alpha stage of development!**
 
 EasyNodeEditor is a library for creating node editors with SwiftUI. I am developing this library with the goal of showing as little internal complex code as possible, so that developers can concentrate as much as possible on node creation.
