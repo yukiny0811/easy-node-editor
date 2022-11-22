@@ -19,7 +19,7 @@ struct NodeMenuContent: View, Identifiable {
             Spacer()
             Button("add") {
                 let temp = nodeType.init(editorConfig: editorConfig)
-                manager.nodeModels[temp.id] = temp
+                manager.nodeModels[temp.id as! String] = temp
             }
         }
     }
