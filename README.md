@@ -130,10 +130,8 @@ Override ```middleContent()``` function, and define your View.
 ```.swift
 class YourDisplayNode: NodeModelBase {
     @objc @Input var input: Int = 0
-    override func middleContent() -> AnyView {
-        return AnyView(
-            Text("number is now -> \(input)")
-        )
+    override func middleContent() -> any View {
+        Text("number is now -> \(input)")
     }
 }
 ```
@@ -168,14 +166,12 @@ class YourInteractiveNode: NodeModelBase {
     override func processOnChange() {
         output = input * count
     }
-    override func middleContent() -> AnyView {
-        return AnyView(
-            Group {
-                Slider(value: binding(\YourInteractiveNode.count), in: 0...100)
-            }
-            .frame(minWidth: 200, maxWidth: 200)
-            .fixedSize()
-        )
+    override func middleContent() -> any View {
+        Group {
+            Slider(value: binding(\YourInteractiveNode.count), in: 0...100)
+        }
+        .frame(minWidth: 200, maxWidth: 200)
+        .fixedSize()
     }
 }
 ```
@@ -211,10 +207,8 @@ class YourIONode: NodeModelBase {
 
 class YourDisplayNode: NodeModelBase {
     @objc @Input var input: Int = 0
-    override func middleContent() -> AnyView {
-        return AnyView(
-            Text("number is now -> \(input)")
-        )
+    override func middleContent() -> any View {
+        Text("number is now -> \(input)")
     }
 }
 
@@ -225,14 +219,12 @@ class YourInteractiveNode: NodeModelBase {
     override func processOnChange() {
         output = input * count
     }
-    override func middleContent() -> AnyView {
-        return AnyView(
-            Group {
-                Slider(value: binding(\YourInteractiveNode.count), in: 0...100)
-            }
-            .frame(minWidth: 200, maxWidth: 200)
-            .fixedSize()
-        )
+    override func middleContent() -> any View {
+        Group {
+            Slider(value: binding(\YourInteractiveNode.count), in: 0...100)
+        }
+        .frame(minWidth: 200, maxWidth: 200)
+        .fixedSize()
     }
 }
 ```
