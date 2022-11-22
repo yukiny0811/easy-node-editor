@@ -49,7 +49,7 @@ open class NodeModelBase: NSObject, Identifiable, ObservableObject {
                     InputNode(idString: (nodeID: self.id, inputName: inputArray[i]), editorConfig: self.editorConfig)
                 }
                 Text(self.displayTitle())
-                middleContent()
+                wrapMiddleContent()
                 ForEach (0..<outputArray.count) { o in
                     OutputNode(idString: (nodeID: self.id, outputName: outputArray[o]), editorConfig: self.editorConfig)
                 }
@@ -58,8 +58,12 @@ open class NodeModelBase: NSObject, Identifiable, ObservableObject {
             .fixedSize()
         )
     }
-    open func middleContent() -> AnyView {
-        return AnyView(Group{})
+    private func wrapMiddleContent() -> AnyView {
+        AnyView(middleContent())
+    }
+    @ViewBuilder
+    open func middleContent() -> any View {
+        Group{}
     }
     open func binding<W, T>(_ v: KeyPath<W, T>) -> Binding<T> {
         return Binding(
