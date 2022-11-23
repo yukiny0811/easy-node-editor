@@ -1,7 +1,9 @@
 ## EasyNodeEditor
 
-**ノードエディタとしての複雑なロジック部分を開発者ができるだけ意識せずに済むようにして、ノードの作成やその他の開発に集中できるようなライブラリ**    
-というコンセプトで作成しています
+**EasyNodeEditorはSwift製のノードエディタ作成ライブラリです**
+
+**ノードエディタとしての複雑なロジック部分を開発者ができるだけ意識せずに済むようにして、ノードの作成やその他の開発に集中できるようにする**    
+というコンセプトで開発を進めています。
 
 ## デモ
 こんな感じのノードエディタです。    
@@ -133,10 +135,8 @@ SwiftUIの一般的な文法で書けるのでまじで簡単に書けるはず�
 ```.swift
 class YourDisplayNode: NodeModelBase {
     @objc @Input var input: Int = 0
-    override func middleContent() -> AnyView {
-        return AnyView(
-             Text("number is now -> \(input)")
-        )
+    override func middleContent() -> any View {
+         Text("number is now -> \(input)")
     }
 }
 ```
@@ -164,9 +164,6 @@ struct ContentView: View {
 ノードができたら今までと同じように登録しましょう。
 
 ```.swift
-class YourInteractiveNodeSubModel: ObservableObject {
-    @Published var sliderValue: Double = 0.0
-}
 class YourInteractiveNode: NodeModelBase {
     @objc @Input var input: Int = 0
     @objc @Middle var count: Int = 0
@@ -174,14 +171,12 @@ class YourInteractiveNode: NodeModelBase {
     override func processOnChange() {
         output = input * count
     }
-    override func middleContent() -> AnyView {
-        return AnyView(
-            Group {
-                Slider(value: binding(\YourInteractiveNode.count), in: 0...100)
-            }
-            .frame(minWidth: 200, maxWidth: 200)
-            .fixedSize()
-        )
+    override func middleContent() -> any View {
+        Group {
+            Slider(value: binding(\YourInteractiveNode.count), in: 0...100)
+        }
+        .frame(minWidth: 200, maxWidth: 200)
+        .fixedSize()
     }
 }
 ```
@@ -215,10 +210,8 @@ class YourIONode: NodeModelBase {
 
 class YourDisplayNode: NodeModelBase {
     @objc @Input var input: Int = 0
-    override func middleContent() -> AnyView {
-        return AnyView(
-            Text("number is now -> \(input)")
-        )
+    override func middleContent() -> any View {
+        Text("number is now -> \(input)")
     }
 }
 
@@ -229,14 +222,12 @@ class YourInteractiveNode: NodeModelBase {
     override func processOnChange() {
         output = input * count
     }
-    override func middleContent() -> AnyView {
-        return AnyView(
-            Group {
-                Slider(value: binding(\YourInteractiveNode.count), in: 0...100)
-            }
-            .frame(minWidth: 200, maxWidth: 200)
-            .fixedSize()
-        )
+    override func middleContent() -> any View {
+        Group {
+            Slider(value: binding(\YourInteractiveNode.count), in: 0...100)
+        }
+        .frame(minWidth: 200, maxWidth: 200)
+        .fixedSize()
     }
 }
 ```
